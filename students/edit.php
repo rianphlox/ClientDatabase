@@ -19,28 +19,26 @@
 
     if (isset($_POST['submit'])) {
       // $db = new DB();
+      $oldDb = strtolower(htmlentities($_POST['oldDb']));
       $fullName = $_POST['fullname'];
       $mat = $_POST['mat'];
+      $newDb = strtolower($mat);
       $dept = $_POST['dept'];
-      $course = $_POST['course'];
-      $score = (int)$_POST['score'];
-      $grade = $_POST['grade'];
+      $programme = strtolower($_POST['programme']) == 'part-time' ? 'part_time' : strtolower($_POST['programme']);
       $updated_id = (int)$_POST['updated_id'];
+      
       // $level = $_POST['level'];
       
-      $sql = "UPDATE students SET full_name = ?, mat_no = ?, department = ?, course = ?, score = ?, grade = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssssisi', $fullName, $mat, $dept, $course, $score, $grade, $updated_id);
-        $stmt->execute();
-        if ($stmt->affected_rows > 0) {
-          echo "<script>alert('Success')</script>";
-          header('Location: ./user');
-         
-        } else {
-          echo "<script>alert('No changes made')</script>";
-          
-        }
-              // echo "<script>alert('$updated_id')</script>";
+      $sql = "UPDATE `students` SET `full_name` = ?, `mat_no` = ?, `programme` = ? WHERE `students`.`id` = ?;";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param('sssi', $fullName, $mat, $programme, $updated_id);
+      if ($stmt->execute()) {
+        $oldDb = "${oldDb}_table";
+        $newDb = "${newDb}_table";
+        $sql = "RENAME TABLE `students`.`$oldDb` TO `students`.`$newDb`;";
+        $conn->query($sql);
+        header('Location: ./user');
+      }
 
     }
 
@@ -69,28 +67,34 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           
-          <li class="active ">
-            <a href="./user">
+          <li class="">
+            <a href="./user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>User</p>
             </a>
           </li>
           <li>
-            <a href="./masters">
+            <a href="./masters.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Masters</p>
             </a>
           </li>
           <li>
-            <a href="./part-time">
+            <a href="./part-time.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Part-Time</p>
             </a>
           </li>
           <li>
-            <a href="./diploma">
+            <a href="./diploma.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Diploma</p>
+            </a>
+          </li>
+          <li>
+            <a href="./broadsheet">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Broadsheet</p>
             </a>
           </li>
           
@@ -109,7 +113,7 @@
           <div class="col-md-8">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Add Record</h5>
+                <h5 class="card-title">Edit Record</h5>
               </div>
               <div class="card-body">
                 <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
@@ -179,10 +183,11 @@
                       </div>
                     </div>
                   </div> -->
-                  
+                  <input type="hidden" name="updated_id" value="<?= $userId ?>">
+                  <input type="hidden" name="oldDb" value="<?= $mat_no ?>">
                   <div class="_row">
                     <div class="_update ml-auto _mr-auto">
-                      <button name="submit" type="submit" class="btn btn-block btn-primary ">Add Record</button>
+                      <button name="submit" type="submit" class="btn btn-block btn-primary ">Edit Record</button>
                     </div>
                   </div>
                 </form>

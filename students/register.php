@@ -43,27 +43,33 @@
         <ul class="nav">
           
           <li class="">
-            <a href="./user">
+            <a href="./user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>User</p>
             </a>
           </li>
           <li>
-            <a href="./masters">
+            <a href="./masters.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Masters</p>
             </a>
           </li>
           <li>
-            <a href="./part-time">
+            <a href="./part-time.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Part-Time</p>
             </a>
           </li>
           <li>
-            <a href="./diploma">
+            <a href="./diploma.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Diploma</p>
+            </a>
+          </li>
+          <li>
+            <a href="./broadsheet">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Broadsheet</p>
             </a>
           </li>
           
@@ -83,8 +89,8 @@
 
             <div >
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="tables">Tables</a></li>
-                <li class="breadcrumb-item"><a href="student?mat=<?= $mat ?>">Student</a></li>
+                <li class="breadcrumb-item"><a href="<?= $programme ?>">Tables</a></li>
+                <li class="breadcrumb-item"><a href="student.php?mat=<?= $mat ?>&prog=<?= $programme ?>">Student</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Register</li>
               </ol>
             </div>
@@ -107,7 +113,7 @@
                     <tbody>
                         <?php foreach($courses as $course): ?>
                         <?php extract($course) ?>
-                            <form class="_form" action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
+                            <form class="_form"  id='<?= "_$id" ?>' action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
                                 <tr>
                                     <td>PRE<?= $course_code ?></td>
                                     <input type="hidden" name="course_code" value="<?= $course_code ?>">

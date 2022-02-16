@@ -66,6 +66,12 @@
               <p>Diploma</p>
             </a>
           </li>
+          <li>
+            <a href="./broadsheet">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Broadsheet</p>
+            </a>
+          </li>
           
         </ul>
       </div>
@@ -84,7 +90,8 @@
           <div class="col-md-12">
             <div >
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="tables">Tables</a></li>
+                
+                <li class="breadcrumb-item"><a href="<?= $programme !== 'part_time' ? "{$programme}.php" : 'part-time.php'  ?>">Tables</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Student</li>
               </ol>
             </div>
@@ -103,7 +110,7 @@
                         <th class="">Year</th>
                         <th class="">Semester</th>
                         <th class="">Grade</th>
-                        <th class="">Remark</th>
+                        <th class=""></th>
                         <th class=""></th>
                       </thead>
                       <tbody>
@@ -115,7 +122,7 @@
                           <td></td>
                           <td></td>
                           <td>
-                            <a href="register?mat=<?= $mat; ?>&prog=<?= $programme; ?>" type="button" rel="tooltip" class="btn btn-small btn-warning">
+                          <a href="register?mat=<?= $mat; ?>&prog=<?= $programme; ?>" type="button" rel="tooltip" class="btn btn-small btn-warning">
                               <span>Register</span>
                             </a>
                           </td>
@@ -131,7 +138,7 @@
                             <th class="">Semester</th>
                             <th class="">Grade</th>
                             <th class="">Score</th>
-                            <th class="">Remark</th>
+                            <th class=""></th>
                         </thead>
                         <tbody>
                         <?php foreach($results->fetch_all(MYSQLI_ASSOC) as $result): ?>
@@ -139,11 +146,16 @@
                               <tr>
                                 <td><?= "PRE$course_code"; ?></td>
                                 <td><?= $course_name ?></td>
-                                <td> <?= explode('.', $course_id)[0] ?> </td>
-                                <td> <?= explode('.', $course_id)[1] ?> </td>
-                                <td><?= $grade ?></td>
-                                <td><?= $score ?></td>
-                                <td class="_remark"></td>
+                                <td> <center><?= explode('.', $course_id)[0] ?></center> </td>
+                                <td> <center><?= explode('.', $course_id)[1] ?></center> </td>
+                                <td><center><?= strtoupper($grade) ?></center></td>
+                                <td><center><?= $score ?></center></td>
+                                <td class="_remark">
+                                  <a href="editCourse.php?id=<?= $id; ?>&matno=<?= $mat; ?>&prog=<?= $programme ?>" type="button" rel="tooltip" class="btn btn-small btn-info">
+                                    <!-- <i class="material-icons">edit</i> -->
+                                    <span>Edit</span>
+                                  </a>
+                                </td>
                               </tr>
                           <?php endforeach; ?>
 

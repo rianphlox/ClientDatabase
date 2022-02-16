@@ -15,7 +15,7 @@
       $programme = strtolower($_POST['programme']) == 'part time' ? 'part_time' : strtolower($_POST['programme']);
       $result = $db->addStudent($fullName, $mat, $dept, $programme);
       if ($result) {
-        header('location: ./user');
+        header('location: ./user.php');
       } else {
         $msg = "Mat Number Already Exists";
         $msgClass = "alert-danger";
@@ -50,27 +50,33 @@
         <ul class="nav">
           
           <li class="active ">
-            <a href="./user">
+            <a href="./user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>User</p>
             </a>
           </li>
           <li>
-            <a href="./masters">
+            <a href="./masters.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Masters</p>
             </a>
           </li>
           <li>
-            <a href="./part-time">
+            <a href="./part-time.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Part-Time</p>
             </a>
           </li>
           <li>
-            <a href="./diploma">
+            <a href="./diploma.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Diploma</p>
+            </a>
+          </li>
+          <li>
+            <a href="./broadsheet">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Broadsheet</p>
             </a>
           </li>
           
@@ -107,7 +113,7 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Full Name</label>
-                        <input name="fullname" type="text" class="form-control" placeholder="" >
+                        <input name="fullname" type="text" class="form-control" autocomplete="off" placeholder="" >
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">

@@ -31,27 +31,33 @@
         <ul class="nav">
           
         <li class="">
-            <a href="./user">
+            <a href="./user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>User</p>
             </a>
           </li>
           <li class="active">
-            <a href="./masters">
+            <a href="./masters.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Masters</p>
             </a>
           </li>
           <li>
-            <a href="./part-time">
+            <a href="./part-time.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Part-Time</p>
             </a>
           </li>
           <li>
-            <a href="./diploma">
+            <a href="./diploma.php">
               <i class="nc-icon nc-hat-3"></i>
               <p>Diploma</p>
+            </a>
+          </li>
+          <li class="">
+            <a href="./broadsheet">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Broadsheet</p>
             </a>
           </li>
           
@@ -89,14 +95,14 @@
                           <?php extract($student) ?>
                             <tr>
                               <td><?= $full_name ?></td>
-                              <td><?= "<span class='text-info'>PG/</span><a href=student?mat=$mat_no&prog=$programme>$mat_no</a>" ?></td>
+                              <td><?= "<span class='text-info'>PG/</span><a href=student.php?mat=$mat_no&prog=$programme>$mat_no</a>" ?></td>
                               <td><?= $department ?></td>
                               <!-- <td><?= "PRE$course" ?></td>
                               <td><?= $score ?></td>
                               <td><?= $grade ?></td> -->
                               
                               <td>
-                                <a href="edit?id=<?= $id; ?>" type="button" rel="tooltip" class="btn btn-small btn-success">
+                                <a href="edit.php?id=<?= $id; ?>" type="button" rel="tooltip" class="btn btn-small btn-success">
                                     <!-- <i class="material-icons">edit</i> -->
                                     <span>Edit</span>
                                 </a>

@@ -27,9 +27,9 @@ forms.forEach(form => {
         })
         .then(res => res.json())
         .then(data => {
-            demo.showNotification('top','right', data.msgClass, data.msg)
+            demo.showNotification('top','right', data.msgClass, data.msg);
             setTimeout(() => {
-                form.reset()
+                form.nextElementSibling.remove()
             }, 1000);
             
         })

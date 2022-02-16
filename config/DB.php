@@ -28,8 +28,8 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('s', $programme);
             $stmt->execute();
-            $result = $stmt->get_result();
-            return $result;
+            return $stmt->get_result();
+            
         }
 
         public function addStudent($fullName, $mat, $dept, $programme) {
@@ -102,7 +102,7 @@
 
         public function getRegisteredCourses($mat) {
             $tableName = "{$mat}_table";
-            $sql = "select * from $tableName";
+            $sql = "select * from $tableName ORDER BY course_code ASC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->get_result();
@@ -125,7 +125,7 @@
         }
 
         public function getCourses($programme) {
-            $sql = "SELECT * FROM {$programme}_courses";
+            $sql = "SELECT * FROM {$programme}_courses order by course_code";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->get_result();
@@ -161,4 +161,26 @@
             // }
         }
 
+        public function fetchCourse($id, $mat, $programme) {
+            $table = "{$mat}_table";
+            $sql = "select * from $table where id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            return $stmt->get_result();
+        }
+
+        public function getCoursesById($programme, $course_id) {
+            $table = "{$programme}_courses";
+            if ($course_id > 2) {
+                $sql = "SELECT * FROM $table WHERE course_id > ? ORDER BY course_id ASC" ;
+            } else {
+                $sql = "SELECT * FROM $table WHERE course_id < ? ORDER BY course_id ASC" ;
+            }
+            
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('s', $course_id);
+            $stmt->execute();
+            return $stmt->get_result();
+        }
     }
