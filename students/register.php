@@ -67,7 +67,7 @@
             </a>
           </li>
           <li>
-            <a href="./broadsheet">
+            <a href="./broadsheet.php">
               <i class="nc-icon nc-alert-circle-i"></i>
               <p>Broadsheet</p>
             </a>
@@ -126,7 +126,7 @@
 
                                     <td>
                                         <div class="form-group">
-                                            <input class="form-control score" autocomplete="off" type="number" name="score" id="">
+                                            <input class="form-control score" autocomplete="off" type="number" name="score" id='<?= "s_$id" ?>' min="0" max="100">
                                         </div>
                                     </td>
                                     <div>

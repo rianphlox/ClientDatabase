@@ -16,7 +16,7 @@
       $courses = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
       
     } else {
-        header('location: ./user'); 
+        header('location: ./user.php'); 
     }
 
 ?>
@@ -43,36 +43,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           
-          <li class="">
-            <a href="./user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li>
-            <a href="./masters">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li>
-            <a href="./part-time">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li>
-            <a href="./diploma">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li>
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
+          <?php include '../inc/nav_links.php' ?>
           
         </ul>
       </div>

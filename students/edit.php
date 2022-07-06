@@ -1,46 +1,50 @@
-<?php 
-    require_once '../config/DB.php';
-    $db = new DB();
-    $conn = $db->conn;
+<?php
+require_once '../config/DB.php';
+$db = new DB();
+$conn = $db->conn;
 
-    // $userId = $_GET['id'];
-    
-    $student;
-    if (isset($_GET['id'])) {
-      $userId = $_GET['id'];
-      $stmt = $conn->prepare('select * from students where id = ?');
-      $stmt->bind_param('i', $userId);
-      $stmt->execute();
-      $student = $stmt->get_result()->fetch_assoc();
-      extract($student);
+// $userId = $_GET['id'];
+$msg = "";
+$msgClass = "";
 
+$student;
+if (isset($_GET['id'])) {
+  $userId = $_GET['id'];
+  $stmt = $conn->prepare('select * from students where id = ?');
+  $stmt->bind_param('i', $userId);
+  $stmt->execute();
+  $student = $stmt->get_result()->fetch_assoc();
+  extract($student);
+}
 
+if (isset($_POST['submit'])) {
+  // $db = new DB();
+  $oldDb = strtolower(htmlentities($_POST['oldDb']));
+  $fullName = $_POST['fullname'];
+  $mat = $_POST['mat'];
+  $newDb = strtolower($mat);
+  $dept = $_POST['dept'];
+  $programme = strtolower($_POST['programme']) == 'part-time' ? 'part_time' : strtolower($_POST['programme']);
+  $updated_id = (int)$_POST['updated_id'];
+
+  // $level = $_POST['level'];
+
+  if (!empty($fullName) && !empty($mat)) {
+    $sql = "UPDATE `students` SET `full_name` = ?, `mat_no` = ?, `programme` = ? WHERE `students`.`id` = ?;";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $fullName, $mat, $programme, $updated_id);
+    if ($stmt->execute()) {
+      $oldDb = "${oldDb}_table";
+      $newDb = "${newDb}_table";
+      $sql = "RENAME TABLE `students`.`$oldDb` TO `students`.`$newDb`;";
+      $conn->query($sql);
+      header('Location: ./user.php');
     }
-
-    if (isset($_POST['submit'])) {
-      // $db = new DB();
-      $oldDb = strtolower(htmlentities($_POST['oldDb']));
-      $fullName = $_POST['fullname'];
-      $mat = $_POST['mat'];
-      $newDb = strtolower($mat);
-      $dept = $_POST['dept'];
-      $programme = strtolower($_POST['programme']) == 'part-time' ? 'part_time' : strtolower($_POST['programme']);
-      $updated_id = (int)$_POST['updated_id'];
-      
-      // $level = $_POST['level'];
-      
-      $sql = "UPDATE `students` SET `full_name` = ?, `mat_no` = ?, `programme` = ? WHERE `students`.`id` = ?;";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param('sssi', $fullName, $mat, $programme, $updated_id);
-      if ($stmt->execute()) {
-        $oldDb = "${oldDb}_table";
-        $newDb = "${newDb}_table";
-        $sql = "RENAME TABLE `students`.`$oldDb` TO `students`.`$newDb`;";
-        $conn->query($sql);
-        header('Location: ./user');
-      }
-
-    }
+  } else {
+    $msg = "Please fill in all fields!";
+    $msgClass = "alert-danger";
+  }
+}
 
 ?>
 
@@ -66,38 +70,9 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          
-          <li class="">
-            <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li>
-            <a href="./masters.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li>
-            <a href="./part-time.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li>
-            <a href="./diploma.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li>
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
-          
+
+          <?php include '../inc/nav_links.php' ?>
+
         </ul>
       </div>
     </div>
@@ -108,8 +83,18 @@
       <!-- End Navbar -->
 
       <div class="content">
+
+        <?php if ($msg !== "") : ?>
+          <div class="col-md-8">
+            <div class="alert <?= $msgClass ?>" role="alert">
+              <?= $msg; ?>
+            </div>
+          </div>
+        <?php endif; ?>
+
+
         <div class="row">
-          
+
           <div class="col-md-8">
             <div class="card card-user">
               <div class="card-header">
@@ -117,18 +102,18 @@
               </div>
               <div class="card-body">
                 <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
-                  
+
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Full Name</label>
-                        <input name="fullname" value="<?= $full_name ?>" type="text" class="form-control" placeholder="" >
+                        <input name="fullname" value="<?= $full_name ?>" type="text" class="form-control" placeholder="">
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label>Matric No.</label>
-                        <input type="text" value="<?= $mat_no ?>" class="form-control" name="mat" >
+                        <input type="text" value="<?= $mat_no ?>" class="form-control" name="mat">
                       </div>
                     </div>
                   </div>
@@ -196,17 +181,17 @@
           </div>
         </div>
       </div>
-      
+
       <?php include '../inc/footer.php'; ?>
     </div>
   </div>
-  
+
   <?php include '../inc/scripts.php'; ?>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
   <script src="../assets/js/grade.js"></script>
-  
+
 </body>
 
 </html>

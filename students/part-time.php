@@ -1,10 +1,10 @@
 <?php
-     require_once '../config/DB.php';
-     $db = new DB();
-     $programme = 'part_time';
-     $results = $db->getAllStudents($programme);
-     $students = $results->fetch_all(MYSQLI_ASSOC);
-    
+require_once '../config/DB.php';
+$db = new DB();
+$programme = 'part_time';
+$results = $db->getAllStudents($programme);
+$students = $results->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 
@@ -29,38 +29,9 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          
-        <li class="">
-            <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li>
-            <a href="./masters.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="./part-time.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li>
-            <a href="./diploma.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li>
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
-          
+
+          <?php include '../inc/nav_links.php' ?>
+
         </ul>
       </div>
     </div>
@@ -76,7 +47,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Showing Results for <?= $results->num_rows ?> Students</h4>
+                <h4 class="card-title">Showing Results for <?= $results->num_rows ?> Student(s)</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -91,41 +62,47 @@
                       <th class="th-sm"></th>
                     </thead>
                     <tbody>
-                        <?php foreach($students as $student): ?>
-                          <?php extract($student) ?>
-                            <tr>
-                              <td><?= $full_name ?></td>
-                              <td><?= "<span class='text-info'>PG/</span><a href=student.php?mat=$mat_no&prog=$programme>$mat_no</a>" ?></td>
-                              <td><?= $department ?></td>
-                              <!-- <td><?= "PRE$course" ?></td>
+                      <?php foreach ($students as $student) : ?>
+                        <?php extract($student) ?>
+                        <tr>
+                          <td><?= $full_name ?></td>
+                          <td><?= "<span class='text-info'>PG/</span><a href=student.php?mat=$mat_no&prog=$programme>$mat_no</a>" ?></td>
+                          <td><?= $department ?></td>
+                          <!-- <td><?= "PRE$course" ?></td>
                               <td><?= $score ?></td>
                               <td><?= $grade ?></td> -->
-                              
-                              <td>
-                                <a href="edit.php?id=<?= $id; ?>" type="button" rel="tooltip" class="btn btn-small btn-success">
-                                    <!-- <i class="material-icons">edit</i> -->
-                                    <span>Edit</span>
-                                </a>
-                              </td>
 
-                            </tr>
-                        <?php endforeach; ?>
+                          <td>
+                            <a href="edit.php?id=<?= $id; ?>" type="button" rel="tooltip" class="btn btn-small btn-success">
+                              <!-- <i class="material-icons">edit</i> -->
+                              <span>Edit</span>
+                            </a>
+                          </td>
+                          <td>
+                            <a href="delete.php?id=<?= $id; ?>&p=<?= basename($_SERVER['PHP_SELF']) ?>" type="button" rel="tooltip" class="btn btn-small btn-danger">
+                              <!-- <i class="material-icons">edit</i> -->
+                              <span>Delete</span>
+                            </a>
+                          </td>
+
+                        </tr>
+                      <?php endforeach; ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
-      
+
       <?php include '../inc/footer.php' ?>
     </div>
   </div>
-  
+
   <?php include '../inc/scripts.php'; ?>
-  
+
 </body>
 
 </html>

@@ -42,36 +42,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           
-          <li class="">
-            <a href="./user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li>
-            <a href="./masters">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li>
-            <a href="./part-time">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li>
-            <a href="./diploma">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li>
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
+          <?php include '../inc/nav_links.php' ?>
           
         </ul>
       </div>
@@ -122,7 +93,7 @@
                           <td></td>
                           <td></td>
                           <td>
-                          <a href="register?mat=<?= $mat; ?>&prog=<?= $programme; ?>" type="button" rel="tooltip" class="btn btn-small btn-warning">
+                          <a href="register.php?mat=<?= $mat; ?>&prog=<?= $programme; ?>" type="button" rel="tooltip" class="btn btn-small btn-warning">
                               <span>Register</span>
                             </a>
                           </td>
@@ -151,7 +122,7 @@
                                 <td><center><?= strtoupper($grade) ?></center></td>
                                 <td><center><?= $score ?></center></td>
                                 <td class="_remark">
-                                  <a href="editCourse.php?id=<?= $id; ?>&matno=<?= $mat; ?>&prog=<?= $programme ?>" type="button" rel="tooltip" class="btn btn-small btn-info">
+                                  <a href="edit-course.php?id=<?= $id; ?>&matno=<?= $mat; ?>&prog=<?= $programme ?>" type="button" rel="tooltip" class="btn btn-small btn-info">
                                     <!-- <i class="material-icons">edit</i> -->
                                     <span>Edit</span>
                                   </a>

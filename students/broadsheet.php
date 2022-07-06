@@ -29,37 +29,8 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           
-        <li class="">
-            <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="./masters.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li>
-            <a href="./part-time.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="./diploma.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
-          
+          <?php include '../inc/nav_links.php' ?>
+
         </ul>
       </div>
     </div>

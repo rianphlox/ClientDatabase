@@ -3,9 +3,9 @@
     <div class="row">
       <nav class="footer-nav">
         <ul>
-          <li><a href="#" >Developer Sam</a></li>
-          <li><a href="#" >Blog</a></li>
-          <li><a href="#" >Contact Me</a></li>
+          <li><a href="javascript:void(0)" >Developer Sam - 08112823412</a></li>
+          <li><a href="javascript:void(0)" >Blog</a></li>
+          <li><a href="javascript:void(0)" >Contact Me</a></li>
         </ul>
       </nav>
       <div class="credits ml-auto">

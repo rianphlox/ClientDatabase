@@ -30,36 +30,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           
-          <li class="">
-            <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User</p>
-            </a>
-          </li>
-          <li>
-            <a href="./masters.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Masters</p>
-            </a>
-          </li>
-          <li>
-            <a href="./part-time.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Part-Time</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="./diploma.php">
-              <i class="nc-icon nc-hat-3"></i>
-              <p>Diploma</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="./broadsheet">
-              <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Broadsheet</p>
-            </a>
-          </li>
+          <?php include '../inc/nav_links.php' ?>
           
         </ul>
       </div>
@@ -76,7 +47,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Showing Results for <?= $results->num_rows ?> Students</h4>
+                <h4 class="card-title">Showing Results for <?= $results->num_rows ?> Student(s)</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -105,6 +76,12 @@
                                 <a href="edit.php?id=<?= $id; ?>" type="button" rel="tooltip" class="btn btn-small btn-success">
                                     <!-- <i class="material-icons">edit</i> -->
                                     <span>Edit</span>
+                                </a>
+                              </td>
+                              <td>
+                                <a href="delete.php?id=<?= $id; ?>&p=<?= basename($_SERVER['PHP_SELF']) ?>" type="button" rel="tooltip" class="btn btn-small btn-danger">
+                                    <!-- <i class="material-icons">edit</i> -->
+                                    <span>Delete</span>
                                 </a>
                               </td>
 
