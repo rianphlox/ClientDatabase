@@ -9,7 +9,7 @@
       
       
 
-      $fullName = trim(htmlentities($_POST['fullname']));
+      $fullName = ucwords(trim(htmlentities($_POST['fullname'])));
       $mat = trim(htmlentities($_POST['mat']));
       $dept = htmlentities($_POST['dept']);
       // $programme = strtolower($_POST['programme']);
